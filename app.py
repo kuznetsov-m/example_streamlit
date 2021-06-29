@@ -1,29 +1,16 @@
 import streamlit as st
 
+from page_1 import page_1
+from page_2 import page_2
+
 st.sidebar.markdown('### Настройки')
 languages = ['rus', 'eng']
 selected_languages = st.sidebar.selectbox('Язык', languages)
 
-st.markdown('### 1 Загрузите файл')
-upload_file_object = st.file_uploader('', ['pdf', 'png', 'jpg'])
-if not upload_file_object:
-    st.stop()
+# Create a page dropdown 
+page = st.sidebar.selectbox("Choose your page", ["Page 1", "Page 2", "Page 3"]) 
 
-# кэширование файла
-filename = upload_file_object.name
-if not upload_file_object.closed:
-    print(f'Dumping file to cache {filename}...')
-    with open(filename, 'wb') as outfile:
-        outfile.write(upload_file_object.getvalue())
-
-st.markdown('### 2 Результат преобразования')
-
-# pdf to image
-text_representation = ''
-if filename.endswith('pdf'):
-    text_representation = 'pdf file'
-else:
-    text_representation = '123' # image to text
-
-st.text(text_representation)
-st.stop()
+if page == "Page 1":
+    page_1()
+elif page == "Page 2":
+    page_2()
